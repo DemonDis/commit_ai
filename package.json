@@ -33,7 +33,11 @@
     "commands": [
       {
         "command": "commit-ai-ilnsk.generate",
-        "title": "Commit AI"
+        "title": "Commit AI",
+        "icon": {
+          "light": "assets/icon.svg",
+          "dark": "assets/icon.svg"
+        }
       },
       {
         "command": "commit-ai-ilnsk.setup",
