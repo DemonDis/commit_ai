@@ -46,9 +46,9 @@ vsce publish
 
 ```json
 {
-  "apiUrl": "https://api.hydraai.ru/v1",
+  "apiUrl": "",
   "apiKey": "your-api-key",
-  "model": "hgpt",
+  "model": "",
   "gitmoji": false
 }
 ```
