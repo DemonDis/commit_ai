@@ -157,7 +157,7 @@ async function generateCommitMessage(diff: string): Promise<string> {
 
 export function activate(context: vscode.ExtensionContext) {
   // Команда для настройки
-  const setupCommand = vscode.commands.registerCommand('commit-ai.setup', async () => {
+  const setupCommand = vscode.commands.registerCommand('commit-ai-ilnsk.setup', async () => {
     const config = await createConfigFile();
     if (config) {
       vscode.window.showInformationMessage('Commit AI configured!');
@@ -165,7 +165,7 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   // Команда генерации
-  const disposable = vscode.commands.registerCommand('commit-ai.generate', async () => {
+  const disposable = vscode.commands.registerCommand('commit-ai-ilnsk.generate', async () => {
     try {
       const commitInfo = getGitDiff();
       
