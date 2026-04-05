@@ -1,0 +1,70 @@
+{
+  "name": "commit-ai",
+  "displayName": "Commit AI",
+  "description": "AI-powered commit message generator",
+  "version": "1.0.0",
+  "publisher": "commit-ai",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:commit-ai.generate",
+    "onLanguage:plaintext",
+    "workspaceContains:**/.git"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "menus": {
+      "scm/title": [
+        {
+          "command": "commit-ai.generate",
+          "icon": {
+            "light": "assets/icon.svg",
+            "dark": "assets/icon.svg"
+          },
+          "group": "navigation",
+          "when": "scmProvider == git && scm hasChanges"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "commit-ai.generate",
+        "title": "Commit AI"
+      },
+      {
+        "command": "commit-ai.setup",
+        "title": "Commit AI: Setup"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "commit-ai.generate",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g"
+      }
+    ],
+    "configuration": {
+      "title": "Commit AI",
+      "properties": {}
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "echo \"No tests yet\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^2.3.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "openai": "^4.0.0"
+  }
+}
