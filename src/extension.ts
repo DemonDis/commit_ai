@@ -215,10 +215,24 @@ async function generateCommitMessage(diff: string): Promise<string> {
   }
 
   const OpenAI = require('openai');
-  const openai = new OpenAI({ 
+  
+  let baseURL = config.apiUrl.endsWith('/') 
+    ? config.apiUrl.slice(0, -1) 
+    : config.apiUrl;
+  
+  if (!baseURL.includes('/openai')) {
+    baseURL = baseURL + '/openai';
+  }
+
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+  const openai = new OpenAI({
     apiKey: config.apiKey,
-    baseURL: config.apiUrl
+    baseURL: baseURL,
+    timeout: 60000
   });
+
+  console.log('OpenAI client config:', { baseURL, hasKey: !!config.apiKey });
 
   // Формируем промпт
   let promptText = config.prompt || 'Generate a concise git commit message (max 72 characters for title). Analyze this diff and create a semantic commit message:\n\n{diff}\n\nReturn ONLY the commit message, no explanation.';
@@ -243,13 +257,21 @@ Return ONLY the commit message with gitmoji, no explanation.`;
     promptText = promptText.replace('{diff}', diff);
   }
 
-  const response = await openai.chat.completions.create({
-    model: config.model,
-    messages: [{ role: 'user', content: promptText }],
-    max_tokens: 200,
-  });
+  try {
+    const response = await openai.chat.completions.create({
+      model: config.model,
+      messages: [{ role: 'user', content: promptText }],
+      max_tokens: 200,
+    });
 
-  return response.choices[0]?.message?.content?.trim() || 'chore: update';
+    return response.choices[0]?.message?.content?.trim() || 'chore: update';
+  } catch (err: any) {
+    console.error('OpenAI Error details:', err);
+    console.error('Error code:', err.code);
+    console.error('Error message:', err.message);
+    console.error('Error cause:', err.cause);
+    throw err;
+  }
 }
 
 export function activate(context: vscode.ExtensionContext) {
