@@ -11,8 +11,6 @@ AI-powered генерация commit сообщений для VS Code.
 
 ### Вариант 2: Из исходников
 ```bash
-git clone <repository-url>
-cd commit_ai
 npm install
 ```
 

@@ -220,8 +220,8 @@ async function generateCommitMessage(diff: string): Promise<string> {
     ? config.apiUrl.slice(0, -1) 
     : config.apiUrl;
   
-  if (!baseURL.includes('/openai')) {
-    baseURL = baseURL + '/openai';
+  if (!baseURL.includes('/v1')) {
+    baseURL = baseURL + '/v1';
   }
 
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
