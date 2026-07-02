@@ -3,6 +3,7 @@
   "displayName": "Commit AI",
   "description": "AI-powered commit message generator",
   "version": "1.0.0",
+  "icon": "img/icon.png",
   "publisher": "commit-ai-ilnsk",
   "engines": {
     "vscode": "^1.85.0"
